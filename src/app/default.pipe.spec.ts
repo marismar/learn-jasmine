@@ -1,14 +1,15 @@
 import { DefaultPipe } from './default.pipe';
 
 describe('DefaultPipe', () => {
-  // let pipe: DefaultPipe;
+  let pipe: DefaultPipe;
 
-  it('create an instance', () => {
-    const pipe = new DefaultPipe();
-    expect(pipe).toBeTruthy();
+  beforeEach(() => {
+    pipe = new DefaultPipe();
   });
-  /*
-  beforeEach(()=>{
-    pipe = new DefaultPipe
-  }) */
+
+  it('providing no value returns fallback', () => {
+    expect(pipe.transform('', 'http://place-hold.it/300')).toBe(
+      'http://place-hold.it/300'
+    );
+  });
 });

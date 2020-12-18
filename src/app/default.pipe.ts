@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'default',
 })
 export class DefaultPipe implements PipeTransform {
-  transform(value: string, fallback: string, forceHttps: boolean): boolean {
+  transform(value: string, fallback: string, forceHttps?: boolean): string {
     let image = '';
 
     if (value) {
@@ -19,6 +19,6 @@ export class DefaultPipe implements PipeTransform {
       }
     }
 
-    return !!image;
+    return image;
   }
 }
