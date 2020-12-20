@@ -1,3 +1,4 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthService } from './auth.service';
 import { LoginComponent } from './login.component';
 
@@ -11,31 +12,36 @@ import { LoginComponent } from './login.component';
 
 describe('Component: Login', () => {
   let component: LoginComponent | any;
-  let service: AuthService | any;
-  let spy: any;
+  let fixture: ComponentFixture<LoginComponent>;
+  let authService: AuthService | any;
 
   beforeEach(() => {
-    service = new AuthService();
-    component = new LoginComponent(service);
-  });
+    // refine the test module by declaring the test component
+    TestBed.configureTestingModule({
+      declarations: [LoginComponent],
+      providers: [AuthService],
+    });
 
-  afterEach(() => {
-    service = null;
-    component = null;
+    // create component test fixture
+    fixture = TestBed.createComponent(LoginComponent);
+    // get test component from the fixture
+    component = fixture.componentInstance;
+    // AuthService provided to the TestBed
+    authService = TestBed.inject(AuthService);
   });
 
   it('needsLogin returns true when the user is not authenticated', () => {
     // service.authenticated = false;
-    spy = spyOn(service, 'isAuthenticated').and.returnValue(false);
+    spyOn(authService, 'isAuthenticated').and.returnValue(false);
     expect(component.needsLogin()).toBeTruthy();
-    expect(service.isAuthenticated).toHaveBeenCalled();
+    expect(authService.isAuthenticated).toHaveBeenCalled();
   });
 
   it('needsLogin returns false when the user is authenticated', () => {
     // service.authenticated = true;
     localStorage.setItem('token', '1234');
-    spy = spyOn(service, 'isAuthenticated').and.returnValue(true);
+    spyOn(authService, 'isAuthenticated').and.returnValue(true);
     expect(component.needsLogin()).toBeFalsy();
-    expect(service.isAuthenticated).toHaveBeenCalled();
+    expect(authService.isAuthenticated).toHaveBeenCalled();
   });
 });

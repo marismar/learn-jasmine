@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
-  template: '<a [hidden]="needsLogin()">Login</a>',
+  template: '<a [hidden]="needsLogin()"></a>',
 })
 export class LoginComponent {
   constructor(private auth: AuthService) {}
