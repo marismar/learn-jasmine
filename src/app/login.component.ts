@@ -3,7 +3,13 @@ import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
-  template: '<a [hidden]="needsLogin()"></a>',
+  template: `
+    <!-- <a [hidden]="needsLogin()"></a> -->
+    <a>
+      <span *ngIf="needsLogin()">Login</span>
+      <span *ngIf="!needsLogin()">Logout</span>
+    </a>
+  `,
 })
 export class LoginComponent {
   constructor(private auth: AuthService) {}
